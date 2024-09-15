@@ -419,7 +419,7 @@ document.getElementById('contact-form').addEventListener('submit', function(even
     
     const formData = { fullName, email, phone, company, message };
 
-    fetch('https://ind.vercel.app:3000/send-email', { 
+    fetch('https://ind.vercel.app/send-email', { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
