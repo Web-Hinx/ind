@@ -221,51 +221,6 @@ document.addEventListener("DOMContentLoaded", function() {
   observer.observe(servicesSection);
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-  const sliderList = document.querySelector('.slider-list');
-  const prevButton = document.querySelector('.slider-button.prev');
-  const nextButton = document.querySelector('.slider-button.next');
-  
-  let scrollAmount = 0;
-  const itemsToShow = 3; 
-  const itemWidth = sliderList.querySelector('.slider-item').offsetWidth;
-  const totalItems = sliderList.children.length;
-  
-  function updateSlider() {
-      const offset = -scrollAmount;
-      sliderList.style.transform = `translateX(${offset}px)`;
-  }
-  
-  function autoScroll() {
-      if (scrollAmount < (totalItems - itemsToShow) * itemWidth) {
-          scrollAmount += itemWidth;
-      } else {
-          scrollAmount = 0;
-      }
-      updateSlider();
-  }
-  
-  setInterval(autoScroll, 8000);
-  
-  prevButton.addEventListener('click', function() {
-      if (scrollAmount > 0) {
-          scrollAmount -= itemWidth;
-      } else {
-          scrollAmount = (totalItems - itemsToShow) * itemWidth;
-      }
-      updateSlider();
-  });
-  
-  nextButton.addEventListener('click', function() {
-      if (scrollAmount < (totalItems - itemsToShow) * itemWidth) {
-          scrollAmount += itemWidth;
-      } else {
-          scrollAmount = 0;
-      }
-      updateSlider();
-  });
-});
-
  document.addEventListener('DOMContentLoaded', () => {
     const whatsappIcon = document.querySelector('.whatsapp-icon');
 
@@ -325,31 +280,69 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  document.addEventListener("DOMContentLoaded", function() {
-    const sliderItems = document.querySelectorAll('.slider-item');
-  
-    const animateSliderItems = () => {
-      gsap.to(sliderItems, {
-        opacity: 1, 
-        y: 0, 
-        duration: 0.5,
-        ease: "power1.inout",
-      });
-    };
-  
-    const projectSection = document.querySelector('.project');
-  
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateSliderItems();
-          observer.disconnect(); 
-        }
-      });
-    }, { threshold: 0.1 }); 
-  
-    observer.observe(projectSection);
+
+
+               //Gsap Pin Scroll  Horizonatl Triger Animation starts 
+
+  gsap.registerPlugin(ScrollTrigger);
+const proj = document.querySelector(".proj");
+const sliderList = document.querySelector(".slider-list");
+const sliderItems = document.querySelectorAll(".slider-item");
+
+function calculateTotalWidth() {
+  const itemWidth = sliderItems[0].offsetWidth;
+  return itemWidth * sliderItems.length; 
+}
+
+function initializeScrollAnimation() {
+  const totalWidth = calculateTotalWidth();
+
+  gsap.set(sliderList, { width: totalWidth + "px" });
+
+  gsap.to(sliderList, {
+    x: -totalWidth + proj.offsetWidth,
+    ease: "none", 
+    scrollTrigger: {
+      trigger: proj, 
+      pin: true,
+      pinSpacing: false, 
+      scrub: 0.8, 
+      snap: {
+        
+        duration: { min: 0.2, max: 0.8 }, 
+        ease: "power1.inOut" 
+      },
+      end: () => `+=${totalWidth - proj.offsetWidth}`, 
+      toggleActions: "play" 
+    }
   });
+}
+
+function refreshAndInitialize() {
+  ScrollTrigger.refresh();
+  initializeScrollAnimation();
+}
+window.addEventListener('resize', refreshAndInitialize);
+refreshAndInitialize();
+
+
+
+
+    // ends
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
   
   
   function animateOnScroll() {
@@ -419,7 +412,7 @@ document.getElementById('contact-form').addEventListener('submit', function(even
     
     const formData = { fullName, email, phone, company, message };
 
-    fetch('https://ind.vercel.app/send-email', { 
+    fetch('http://localhost:3000/send-email', { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -503,57 +496,6 @@ function validateNewsletterEmail(email) {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return re.test(email);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
