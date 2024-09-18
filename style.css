@@ -531,14 +531,16 @@ nav {
     font-style: none;
 }
 
+
+ /* starts project our work section from here*/
+
 .project {
   background-color: var(--color-8);
 }
 .proj{
-     width: 100%; 
-    position: relative;
-    overflow: hidden;     
+    overflow: hidden;
     display: flex;
+    position: relative;
 }
 .p-tex{
     display: flex;
@@ -557,13 +559,14 @@ nav {
  }
 
 .slider-list {
-    padding-block: 70px;
-    display: flex;
-    align-items: stretch; 
-    gap: 20px; 
-    width: 100%; 
-    transition: transform 0.5s ease-in;
-    margin-left: 10px;
+  padding-block: 70px;
+  display: flex;
+  align-items: stretch; 
+  gap: 20px;  
+  transition: transform 0.5s ease-in;
+  margin-left: 10px;
+  width: max-content; 
+
 }
 
 .slider-list::-webkit-scrollbar { 
@@ -571,11 +574,8 @@ nav {
 }
 
 .slider-item {
+    box-sizing: border-box;
     flex: 0 0 calc(100% / 3); 
-    box-sizing: border-box; 
-    transform: translateY(-200%); 
-    opacity: 0;
-    transition: transform 0.5s ease-in, opacity 0.5s ease-out;
 }
 
 .img-holder {
@@ -704,41 +704,9 @@ nav {
         opacity: 1;
 }
 
-.btn-pre {
-    position: absolute; 
-    display: flex;
-    justify-content: space-between;
-    width: 100%; 
-    transform: translate(-50%, -50%); 
-    pointer-events: none;
-    z-index: 1000;
-    top: 50%; 
-    left: 50%; 
-}
 
-.slider-button {
-    background-color: rgba(0, 0, 0, 0.384);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 50%;
-    pointer-events: all;
-    transition: background-color 0.3s ease;
-    align-items: center;
-}
 
-.slider-button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
 
-.slider-button.prev {
-    margin-left: 20px; /
-}
-
-.slider-button.next {
-    margin-right: 20px; 
-}
 
 .hir-sec{
     background: var(--color-8);
